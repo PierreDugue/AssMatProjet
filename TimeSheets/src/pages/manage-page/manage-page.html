@@ -14,5 +14,13 @@
 
 
 <ion-content padding>
-
+  <form (ngSubmit)="register(userForm.value)" #userForm="ngForm">
+    <ion-item>
+      <ion-label>Nom</ion-label><ion-input name="username" ngModel></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Prénom</ion-label><ion-input name="surname" ngModel></ion-input>
+    </ion-item>
+    <button ion-button type="submit">Register</button>
+  </form>
 </ion-content>

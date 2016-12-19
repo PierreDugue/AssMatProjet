@@ -4,24 +4,31 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ManagePagePage } from '../pages/manage-page/manage-page';
 import { TabsPage } from '../pages/tabs/tabs';
+import { SignaturePadModule } from 'angular2-signaturepad';
+import { Storage } from '@ionic/storage';
+import { sigPadComponent } from '../pages/home/sigPadComonent';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ManagePagePage,
-    TabsPage
+    TabsPage,
+    sigPadComponent
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    SignaturePadModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     ManagePagePage,
-    TabsPage
+    TabsPage,
+    sigPadComponent
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Storage]
+  
 })
 export class AppModule {}

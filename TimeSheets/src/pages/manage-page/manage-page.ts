@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { SqlService } from '../../providers/sql-service';
 
 /*
   Generated class for the ManagePage page.
@@ -9,14 +10,19 @@ import { NavController } from 'ionic-angular';
 */
 @Component({
   selector: 'page-manage-page',
-  templateUrl: 'manage-page.html'
-})
+  templateUrl: 'manage-page.html',
+  providers:[{ provide: ManagePagePage, useClass: ManagePagePage },
+    SqlService]
+  })
 export class ManagePagePage {
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, private sqlService: SqlService) { }
 
   ionViewDidLoad() {
-    console.log('Hello ManagePagePage Page');
+  }
+
+  register(user) {
+
   }
 
 }
