@@ -12,19 +12,19 @@ import { SQLite } from 'ionic-native';
 export class SqlService {
 
   constructor(public http: Http) {
-    let db = new SQLite();
-    db.openDatabase({
-      name: 'data.db',
-      location: '../db' // the location field is required
-    }).then(() => {
-      db.executeSql('CREATE TABLE IF NOT EXISTS parents(name VARCHAR(32))', {}).then(() => {
-
-      }, (err) => {
-        console.error('Unable to execute sql: ', err);
-      });
-    }, (err) => {
-      console.error('Unable to open database: ', err);
-    });
+    /* let db = new SQLite();
+     db.openDatabase({
+       name: 'data.db',
+       location: '../db' // the location field is required
+     }).then(() => {
+       db.executeSql('CREATE TABLE IF NOT EXISTS parents(name VARCHAR(32))', {}).then(() => {
+ 
+       }, (err) => {
+         console.error('Unable to execute sql: ', err);
+       });
+     }, (err) => {
+       console.error('Unable to open database: ', err);
+     });
+ */
   }
-
 }

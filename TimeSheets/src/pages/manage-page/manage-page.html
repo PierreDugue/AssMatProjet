@@ -5,22 +5,26 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>managePage</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>
+      Ionic 2 Dropbox
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button *ngIf="depth" (click)="goBack()"><ion-icon name="arrow-back"></ion-icon> Back</button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content>
+  <ion-list>
+    <div *ngFor="let folder of folders">
+      <ion-item *ngIf="folder['.tag'] == 'folder'" detail-push (click)="openFolder(folder.path_lower)">
+        {{folder.name}}
+      </ion-item>
+      <ion-item *ngIf="folder['.tag'] == 'file'">
+        {{folder.name}}
+      </ion-item>
+    </div>
+  </ion-list>
 
-<ion-content padding>
-  <form (ngSubmit)="register(userForm.value)" #userForm="ngForm">
-    <ion-item>
-      <ion-label>Nom</ion-label><ion-input name="username" ngModel></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Prénom</ion-label><ion-input name="surname" ngModel></ion-input>
-    </ion-item>
-    <button ion-button type="submit">Register</button>
-  </form>
 </ion-content>

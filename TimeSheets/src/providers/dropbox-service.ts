@@ -28,7 +28,6 @@ export class DropboxService {
 
   getFolders(path?) {
     let headers = new Headers();
-
     headers.append('Authorization', 'Bearer ' + this.accessToken);
     headers.append('Content-Type', 'application/json');
 

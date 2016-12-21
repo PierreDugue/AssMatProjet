@@ -48,7 +48,7 @@ export class sigPadComponent {
     'canvasWidth': 400,
     'canvasHeight': 200,
     'backgroundColor': '#f6fbff',
-    'penColor': '#666a73'
+    'penColor': '#444444',
   };
 
   constructor(public navController: NavController, public storage: Storage, public toastCtrl: ToastController) { }

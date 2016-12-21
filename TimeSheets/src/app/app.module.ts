@@ -7,6 +7,9 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { Storage } from '@ionic/storage';
 import { sigPadComponent } from '../pages/home/sigPadComonent';
+import { Dropbox } from '../providers/dropbox';
+import { listDropBoxComponent } from '../pages/manage-page/listDropBoxComponent';
+import { TestPage } from '../pages/test-page/test-page';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,9 @@ import { sigPadComponent } from '../pages/home/sigPadComonent';
     HomePage,
     ManagePagePage,
     TabsPage,
-    sigPadComponent
+    sigPadComponent,
+    listDropBoxComponent,
+    TestPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -26,7 +31,9 @@ import { sigPadComponent } from '../pages/home/sigPadComonent';
     HomePage,
     ManagePagePage,
     TabsPage,
-    sigPadComponent
+    sigPadComponent,
+    listDropBoxComponent,
+    TestPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Storage]
   

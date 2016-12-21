@@ -5,20 +5,20 @@ import { DropboxService } from '../../providers/dropbox-service';
 @Component({
     selector: 'list-dropBox',
     templateUrl: 'manage-page.html',
-    providers: [{ provide: ManagePagePage, useClass: ManagePagePage },
+    providers: [{ provide: listDropBoxComponent, useClass: listDropBoxComponent },
         DropboxService]
 })
 
-export class ManagePagePage {
-    TOKEN: string = "zjq9V6DllwAAAAAAAAACUQevaUIlMdO-RkPXDWNsV84oBykiuudgONPyF9NjN3T6";
+export class listDropBoxComponent {
+    TOKEN: string = "zjq9V6DllwAAAAAAAAACUHG3sQWe3Ti32vNYce5iOj6L49KnMr4kXaQNLAertgxl";
 
     depth: number = 0;
     folders: any;
     constructor(public navCtrl: NavController, public dropbox: DropboxService, public loadingCtrl: LoadingController) {
+        console.log(this.TOKEN);
     }
 
     ionViewDidLoad() {
-        console.log(this.TOKEN);
 
         this.dropbox.setAccessToken(this.TOKEN);
         this.folders = [];
@@ -71,4 +71,3 @@ export class ManagePagePage {
         });
     }
 }
-
