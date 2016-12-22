@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-
+import { Storage } from '@ionic/storage';
 /*
   Generated class for the ParentsService provider.
 
@@ -19,7 +19,7 @@ class parent {
 @Injectable()
 export class ParentsService {
 
-  constructor(public http: Http) {
+  constructor(public http: Http, public storage: Storage) {
   }
 
   getParentsList() {
@@ -33,8 +33,16 @@ export class ParentsService {
     return parentList;
   }
 
-  setAParent(){
-    
+  getData() {
+    console.log("Getting Respo");
+    let list = this.storage.get('responsablesList');
+    console.log(list);
+    return list;
+  }
+
+  save(data) {
+    let newData = JSON.stringify(data);
+    this.storage.set('responsablesList', newData);
   }
 
 }

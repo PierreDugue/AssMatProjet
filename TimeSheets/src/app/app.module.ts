@@ -9,7 +9,8 @@ import { Storage } from '@ionic/storage';
 import { sigPadComponent } from '../pages/home/sigPadComonent';
 import { Dropbox } from '../providers/dropbox';
 import { listDropBoxComponent } from '../pages/manage-page/listDropBoxComponent';
-import { TestPage } from '../pages/test-page/test-page';
+import { DatastorageService } from '../providers/datastorage-service';
+import { ParametresPage } from '../pages/parametres/parametres';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { TestPage } from '../pages/test-page/test-page';
     TabsPage,
     sigPadComponent,
     listDropBoxComponent,
-    TestPage
+    ParametresPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -33,9 +34,9 @@ import { TestPage } from '../pages/test-page/test-page';
     TabsPage,
     sigPadComponent,
     listDropBoxComponent,
-    TestPage
+    ParametresPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Storage]
-  
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Storage]
+
 })
-export class AppModule {}
+export class AppModule { }

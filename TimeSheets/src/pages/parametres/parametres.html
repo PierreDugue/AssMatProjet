@@ -1,0 +1,35 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Parametres</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-label>
+    Ajouter un responsable
+  </ion-label>
+  <form (ngSubmit)="register()">
+    <ion-item>
+      <ion-label>Nom</ion-label>
+      <ion-input name="name" [(ngModel)]="responsable.parentName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Prenom</ion-label>
+      <ion-input name="prenom" [(ngModel)]="responsable.parentSurname"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Enfant</ion-label>
+      <ion-input name="enfant" [(ngModel)]="responsable.children"></ion-input>
+    </ion-item>
+    <button ion-button full type="submit">Valider</button>
+  </form>
+
+  <ion-list>
+    <ion-item *ngIf="items" ng-repeat="item in items">
+    </ion-item>
+  </ion-list>
+</ion-content>

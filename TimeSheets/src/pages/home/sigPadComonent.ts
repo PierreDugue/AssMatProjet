@@ -1,8 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, EventEmitter, Output  } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 import { Storage } from '@ionic/storage';
 import { ToastController } from 'ionic-angular';
+import { NativeStorage } from 'ionic-native';
 
 @Component({
   selector: 'sig-pad',
@@ -22,22 +23,13 @@ import { ToastController } from 'ionic-angular';
       <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
     </ion-col>
     <ion-col></ion-col>
- 
   </ion-row>
   <button ion-button full color="danger" (click)="clearPad()">Clear</button>
-  <button ion-button full color="secondary" (click)="savePad()">Save</button>
- 
-  <ion-row>
-    <ion-col></ion-col>
-    <ion-col width-80>
-      <img [src]="signature"/>
-    </ion-col>
-    <ion-col></ion-col>
-  </ion-row>
- 
 </ion-content>`
 })
 export class sigPadComponent {
+
+  @Output() sigImg = new EventEmitter();
 
   signature = '';
   isDrawing = false;
@@ -58,6 +50,8 @@ export class sigPadComponent {
     this.storage.get('savedSignature').then((data) => {
       this.signature = data;
     });
+
+
   }
 
   drawComplete() {
@@ -77,6 +71,7 @@ export class sigPadComponent {
       duration: 3000
     });
     toast.present();
+    this.sigImg.emit(this.signature);
   }
 
   clearPad() {
