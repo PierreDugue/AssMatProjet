@@ -1,12 +1,7 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, NgZone } from '@angular/core';
+import { ModalController, NavController, Platform, ViewController } from 'ionic-angular';
 import { ParentsService } from '../../providers/parents-service';
-
-class Responsable {
-  parentName: String;
-  parentSurname: String;
-  children: String;
-}
+import { DetailRespoPage } from '../detail-respo/detail-respo';
 
 @Component({
   selector: 'page-parametres',
@@ -15,32 +10,34 @@ class Responsable {
 })
 
 export class ParametresPage {
-  responsable: Responsable = new Responsable();
-  public items = [];
-  public item;
-  constructor(public navCtrl: NavController,
-    private parentService: ParentsService) {
-    this.parentService.getData().then((responsablesList) => {
-      if (responsablesList) {
-        this.items = JSON.parse(responsablesList);
-      }
-    }), function (error) {
-      console.log(error);
-      return Promise.reject(error);
-    };
+  public respo = [];
+  public neutre;
+  constructor(private viewCtrl: ViewController,
+    public navCtrl: NavController,
+    private parentsService: ParentsService,
+    private platform: Platform,
+    private zone: NgZone,
+    private modalCtrl: ModalController) {
+
   }
 
   ionViewDidLoad() {
-    this.items.push("eee");
+    this.platform.ready().then(() => {
+      this.parentsService.initDB();
+
+      this.parentsService.getAll()
+        .then(data => {
+          this.zone.run(() => {
+            this.respo = data;
+          });
+        })
+        .catch(console.error.bind(console));
+    });
   }
 
-  register() {
-    console.log(this.responsable);
-    this.item = this.responsable;
-    this.saveDatas(this.item);
+  showDetail(datas = "") {
+    let modal = this.modalCtrl.create(DetailRespoPage, { datas: datas });
+    modal.present();
   }
 
-  saveDatas(item) {
-    this.parentService.save(this.items.push(item));
-  }
 }

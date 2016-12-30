@@ -13,18 +13,17 @@
     Heure actuelle : {{currentTime.time}}
   </p>
 
-  <ion-list>
-  <ion-item ng-repeat="pdf in listOfPdf">
-    {{pdf}}
-  </ion-item>
-</ion-list>
+
 
   <form (ngSubmit)="register()">
     <ion-item>
       <ion-label>Parent</ion-label>
       <ion-select [(ngModel)]="timeDatas.parentName" name="parentName">
         <ion-label>Parent</ion-label>
-        <ion-option *ngFor="let parent of parentList">{{parent.name}}</ion-option>
+        <<ion-option *ngFor="let respo of respoList">
+          {{respo?.parentName}}
+          {{respo?.parentSurname}}
+           </ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
