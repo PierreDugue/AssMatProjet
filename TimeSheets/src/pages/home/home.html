@@ -1,29 +1,25 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Feuille de temps</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Feuille de temps</h2>
-  <p>
-    Date : {{currentTime.day}}
-  </p>
-  <p>
-    Heure actuelle : {{currentTime.time}}
-  </p>
-
-
+  <ion-item>
+    <h1>
+      Date : {{currentTime.day}}
+    </h1>
+    <h2>
+      Heure actuelle : {{currentTime.time}}
+    </h2>
+  </ion-item>
 
   <form (ngSubmit)="register()">
     <ion-item>
       <ion-label>Parent</ion-label>
-      <ion-select [(ngModel)]="timeDatas.parentName" name="parentName">
+      <ion-select [(ngModel)]="timeDatas.parentName" (ngModelChange)="onChange($event)" name="parentName">
         <ion-label>Parent</ion-label>
-        <<ion-option *ngFor="let respo of respoList">
-          {{respo?.parentName}}
-          {{respo?.parentSurname}}
-           </ion-option>
+        <ion-option *ngFor="let respo of respoList">{{respo?.parentName}} {{respo?.parentSurname}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>

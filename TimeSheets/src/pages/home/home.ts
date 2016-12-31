@@ -25,6 +25,7 @@ export class HomePage {
   sigImg = '';
   pdfGenerate;
   public respoList = [];
+  public respo;
 
   constructor(public navCtrl: NavController,
     private getCurrentTimeService: CurrentTimeService,
@@ -55,13 +56,19 @@ export class HomePage {
     this.sigImg = img;
   }
 
+  onChange(dataSelect){
+    console.log(dataSelect);
+    this.respo = dataSelect
+  }
+
   register() {
     console.log(this.timeDatas);
     this.childSigPad.savePad();
     let doc = new jsPDF();
     doc.text(20, 20, 'Feuille de temps');
     doc.text(20, 30, 'Heyre d\'arrivée : ' + this.timeDatas.arrivingTime);
-    doc.text(20, 40, 'Signature : ');
+    doc.text(20, 40, 'Responsable : ' + this.respo);
+    doc.text(20, 50, 'Signature : ');
     doc.addImage(this.sigImg, 'JPEG', 20, 60);
     if (this.sigImg != "") {
       this.pdfGenerate = doc.save(this.currentTime.day + "-" + this.currentTime.time + '.pdf');

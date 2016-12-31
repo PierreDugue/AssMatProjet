@@ -1,4 +1,4 @@
-import { Component, ViewChild, EventEmitter, Output  } from '@angular/core';
+import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 import { Storage } from '@ionic/storage';
@@ -7,16 +7,12 @@ import { NativeStorage } from 'ionic-native';
 
 @Component({
   selector: 'sig-pad',
-  template: `<ion-header>
-  <ion-navbar color="primary">
+  template: `
     <ion-title>
-      Devdactic Signature
+
+      <h4>Please draw your Signature</h4>
     </ion-title>
-  </ion-navbar>
-</ion-header>
- 
-<ion-content>
-  <div class="title">Please draw your Signature</div>
+
   <ion-row [ngClass]="{'drawing-active': isDrawing}">
     <ion-col></ion-col>
     <ion-col>
@@ -25,7 +21,7 @@ import { NativeStorage } from 'ionic-native';
     <ion-col></ion-col>
   </ion-row>
   <button ion-button full color="danger" (click)="clearPad()">Clear</button>
-</ion-content>`
+`
 })
 export class sigPadComponent {
 
