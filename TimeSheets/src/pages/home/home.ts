@@ -4,8 +4,9 @@ import { CurrentTimeService } from '../../providers/get-current-time';
 import { ParentsService } from '../../providers/parents-service';
 import jsPDF from 'jspdf'
 import { sigPadComponent } from './sigPadComonent';
+import { TimeSheetService } from '../../providers/timeSheet-service';
 
-class TimeDatas {
+class FinalDatas {
   arrivingTime;
   departureTime;
   parentName;
@@ -16,12 +17,12 @@ class TimeDatas {
   selector: 'page-home',
   templateUrl: 'home.html',
   providers: [{ provide: HomePage, useClass: HomePage },
-    CurrentTimeService, ParentsService]
+    CurrentTimeService, ParentsService, TimeSheetService]
 })
 export class HomePage {
 
   @ViewChild(sigPadComponent) childSigPad: sigPadComponent;
-  timeDatas: TimeDatas = new TimeDatas();
+  timeDatas: FinalDatas = new FinalDatas();
   sigImg = '';
   pdfGenerate;
   public respoList = [];
@@ -30,6 +31,7 @@ export class HomePage {
   constructor(public navCtrl: NavController,
     private getCurrentTimeService: CurrentTimeService,
     private parentsService: ParentsService,
+    private timeSheetService: TimeSheetService,
     private platform: Platform,
     private zone: NgZone, ) {
   }
@@ -41,6 +43,7 @@ export class HomePage {
   ionViewDidLoad() {
     this.platform.ready().then(() => {
       this.parentsService.initDB();
+      this.timeSheetService.initDB();
 
       this.parentsService.getAll()
         .then(data => {
@@ -56,22 +59,31 @@ export class HomePage {
     this.sigImg = img;
   }
 
-  onChange(dataSelect){
-    console.log(dataSelect);
+  onChange(dataSelect) {
     this.respo = dataSelect
   }
 
+  saveDatas(feuille) {
+    this.timeSheetService.add(feuille)
+      .catch(console.error.bind(console));
+  }
+
   register() {
-    console.log(this.timeDatas);
+    this.timeDatas.parentName = this.respo;
+    this.timeDatas.sigImg = this.sigImg;
+    this.saveDatas(this.timeDatas);
+
+    /*
     this.childSigPad.savePad();
     let doc = new jsPDF();
     doc.text(20, 20, 'Feuille de temps');
-    doc.text(20, 30, 'Heyre d\'arrivée : ' + this.timeDatas.arrivingTime);
+    doc.text(20, 30, 'Heure d\'arrivée : ' + this.timeDatas.arrivingTime);
     doc.text(20, 40, 'Responsable : ' + this.respo);
     doc.text(20, 50, 'Signature : ');
     doc.addImage(this.sigImg, 'JPEG', 20, 60);
     if (this.sigImg != "") {
       this.pdfGenerate = doc.save(this.currentTime.day + "-" + this.currentTime.time + '.pdf');
     }
+*/
   }
 }

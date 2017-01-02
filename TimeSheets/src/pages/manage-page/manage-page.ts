@@ -1,74 +1,104 @@
-import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
-import { DropboxService } from '../../providers/dropbox-service';
+import { Component, NgZone } from '@angular/core';
+import { ModalController, NavController, Platform, ViewController } from 'ionic-angular';
+import { DetailRespoPage } from '../detail-respo/detail-respo';
+
+//import { DropboxService } from '../../providers/dropbox-service';
+import { TimeSheetService } from '../../providers/timeSheet-service';
 
 @Component({
     selector: 'list-dropBox',
     templateUrl: 'manage-page.html',
-    providers: [{ provide: ManagePagePage, useClass: ManagePagePage },
-        DropboxService]
+    providers: [{ provide: ManagePagePage, useClass: ManagePagePage }, TimeSheetService]
 })
 
 export class ManagePagePage {
-    TOKEN: string = "zjq9V6DllwAAAAAAAAACUQevaUIlMdO-RkPXDWNsV84oBykiuudgONPyF9NjN3T6";
 
-    depth: number = 0;
-    folders: any;
-    constructor(public navCtrl: NavController, public dropbox: DropboxService, public loadingCtrl: LoadingController) {
+    public listFeuilles = [];
+    public neutre;
+    constructor(private viewCtrl: ViewController,
+        public navCtrl: NavController,
+        private timeSheetService: TimeSheetService,
+        private platform: Platform,
+        private zone: NgZone,
+        private modalCtrl: ModalController) {
+
     }
 
     ionViewDidLoad() {
-        console.log(this.TOKEN);
+        this.platform.ready().then(() => {
+            this.timeSheetService.initDB();
 
-        this.dropbox.setAccessToken(this.TOKEN);
-        this.folders = [];
-
-        let loading = this.loadingCtrl.create({
-            content: 'Syncing from Dropbox...'
-        });
-
-        loading.present();
-
-        this.dropbox.getFolders().subscribe(data => {
-            this.folders = data.entries;
-            loading.dismiss();
-        }, (err) => {
-            console.log(err);
-        });
-
-    }
-
-    openFolder(path) {
-
-        let loading = this.loadingCtrl.create({
-            content: 'Syncing from Dropbox...'
-        });
-
-        loading.present(loading);
-
-        this.dropbox.getFolders(path).subscribe(data => {
-            this.folders = data.entries;
-            this.depth++;
-            loading.dismiss();
-        }, err => {
-            console.log(err);
-        });
-    }
-
-    goBack() {
-        let loading = this.loadingCtrl.create({
-            content: 'Syncing from Dropbox...'
-        });
-
-        loading.present(loading);
-
-        this.dropbox.goBackFolder().subscribe(data => {
-            this.folders = data.entries;
-            this.depth--;
-            loading.dismiss();
-        }, err => {
-            console.log(err);
+            this.timeSheetService.getAll()
+                .then(data => {
+                    this.zone.run(() => {
+                        this.listFeuilles = data;
+                    });
+                })
+                .catch(console.error.bind(console));
         });
     }
 }
+
+        /*
+        TOKEN: string = "zjq9V6DllwAAAAAAAAACUQevaUIlMdO-RkPXDWNsV84oBykiuudgONPyF9NjN3T6";
+    
+        depth: number = 0;
+        folders: any;
+        constructor(public navCtrl: NavController, public dropbox: DropboxService, public loadingCtrl: LoadingController) {
+        }
+    
+        ionViewDidLoad() {
+            console.log(this.TOKEN);
+    
+            this.dropbox.setAccessToken(this.TOKEN);
+            this.folders = [];
+    
+            let loading = this.loadingCtrl.create({
+                content: 'Syncing from Dropbox...'
+            });
+    
+            loading.present();
+    
+            this.dropbox.getFolders().subscribe(data => {
+                this.folders = data.entries;
+                loading.dismiss();
+            }, (err) => {
+                console.log(err);
+            });
+    
+        }
+    
+        openFolder(path) {
+    
+            let loading = this.loadingCtrl.create({
+                content: 'Syncing from Dropbox...'
+            });
+    
+            loading.present(loading);
+    
+            this.dropbox.getFolders(path).subscribe(data => {
+                this.folders = data.entries;
+                this.depth++;
+                loading.dismiss();
+            }, err => {
+                console.log(err);
+            });
+        }
+    
+        goBack() {
+            let loading = this.loadingCtrl.create({
+                content: 'Syncing from Dropbox...'
+            });
+    
+            loading.present(loading);
+    
+            this.dropbox.goBackFolder().subscribe(data => {
+                this.folders = data.entries;
+                this.depth--;
+                loading.dismiss();
+            }, err => {
+                console.log(err);
+            });
+        }
+        */
 

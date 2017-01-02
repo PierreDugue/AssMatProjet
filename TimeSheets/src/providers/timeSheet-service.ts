@@ -11,7 +11,7 @@ import * as PouchDB from 'pouchdb';
 */
 
 @Injectable()
-export class ParentsService {
+export class TimeSheetService {
   private _db;
   private _respo;
 
@@ -19,12 +19,8 @@ export class ParentsService {
     this.initDB();
   }
 
-  initTSDB() {
-    this._db = new PouchDB('pdfList', { adapter: 'websql' });
-  }
-
   initDB() {
-    this._db = new PouchDB('respoList', { adapter: 'websql' });
+    this._db = new PouchDB('pdfList', { adapter: 'websql' });
   }
 
   add(respo) {

@@ -13,8 +13,9 @@
       Heure actuelle : {{currentTime.time}}
     </h2>
   </ion-item>
+ <button ion-button full (click)="testPDF()">TEST PDF</button>
 
-  <form (ngSubmit)="register()">
+  <form *ngIf="respoForm" (ngSubmit)="register()">
     <ion-item>
       <ion-label>Parent</ion-label>
       <ion-select [(ngModel)]="timeDatas.parentName" (ngModelChange)="onChange($event)" name="parentName">

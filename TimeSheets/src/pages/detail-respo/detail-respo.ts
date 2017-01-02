@@ -47,7 +47,6 @@ export class DetailRespoPage {
   }
 
   delete() {
-    console.log(this.responsable);
     this.parentsService.delete(this.responsable)
       .catch(console.error.bind(console));
 
