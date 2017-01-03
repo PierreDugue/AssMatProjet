@@ -64,7 +64,7 @@ export class sigPadComponent {
     this.signaturePad.clear();
     let toast = this.toastCtrl.create({
       message: 'New Signature saved.',
-      duration: 3000
+      duration: 2000
     });
     toast.present();
     this.sigImg.emit(this.signature);

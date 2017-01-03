@@ -13,7 +13,7 @@ import * as PouchDB from 'pouchdb';
 @Injectable()
 export class TimeSheetService {
   private _db;
-  private _respo;
+  private _datas;
 
   constructor(public http: Http, public storage: Storage) {
     this.initDB();
@@ -23,8 +23,26 @@ export class TimeSheetService {
     this._db = new PouchDB('pdfList', { adapter: 'websql' });
   }
 
-  add(respo) {
-    return this._db.post(respo);
+  add(formDatas) {
+    let timeStamp = new Date().toISOString();
+    let base64String = "";
+    base64String = formDatas.sigImg.substring(22);
+    let signature = {
+      _id: timeStamp,
+      arrivingTime: formDatas.arrivingTime,
+      departureTime: formDatas.departureTime,
+      parentName: formDatas.parentName,
+      _attachments: {
+        "sigImg.png": {
+          content_type: 'image/png',
+          data: base64String
+        }
+      }
+    }
+
+    return this._db.put(signature);
+
+    // return this._db.post(formDatas);
   }
 
   update(respo) {
@@ -37,39 +55,38 @@ export class TimeSheetService {
 
   getAll() {
 
-    if (!this._respo) {
-      return this._db.allDocs({ include_docs: true })
+    if (!this._datas) {
+      return this._db.allDocs({
+        include_docs: true,
+        descending: true,
+        attachments: true
+      })
         .then(docs => {
 
-          this._respo = docs.rows.map(row => {
+          this._datas = docs.rows.map(row => {
             return row.doc;
           });
 
           this._db.changes({ live: true, since: 'now', include_docs: true })
             .on('change', this.onDatabaseChange);
-
-          return this._respo;
+          return this._datas;
         });
     } else {
-      return Promise.resolve(this._respo);
+      return Promise.resolve(this._datas);
     }
   }
 
   private onDatabaseChange = (change) => {
-    let index = this.findIndex(this._respo, change.id);
-    let responsable = this._respo[index];
+    let index = this.findIndex(this._datas, change.id);
+    let responsable = this._datas[index];
 
     if (change.deleted) {
       if (responsable) {
-        this._respo.splice(index, 1); // delete
+        this._datas.splice(index, 1); // delete
       }
     } else {
       // change.doc.Date = new Date(change.doc.Date);
-      if (responsable && responsable._id === change.id) {
-        this._respo[index] = change.doc; // update
-      } else {
-        this._respo.splice(index, 0, change.doc) // insert
-      }
+      this._datas.splice(index, 0, change.doc) // insert
     }
   }
 
@@ -81,5 +98,6 @@ export class TimeSheetService {
       array[mid]._id < id ? low = mid + 1 : high = mid
     }
     return low;
+
   }
 }

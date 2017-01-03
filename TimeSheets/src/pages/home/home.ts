@@ -48,7 +48,7 @@ export class HomePage {
       this.parentsService.getAll()
         .then(data => {
           this.zone.run(() => {
-            this.respoList = data;
+            this.respoList = data; 
           });
         })
         .catch(console.error.bind(console));
@@ -56,6 +56,7 @@ export class HomePage {
   }
 
   getSigImg(img) {
+    this.sigImg ='';
     this.sigImg = img;
   }
 
@@ -69,12 +70,13 @@ export class HomePage {
   }
 
   register() {
+    this.childSigPad.savePad();
     this.timeDatas.parentName = this.respo;
+    this.timeDatas.sigImg = '';
     this.timeDatas.sigImg = this.sigImg;
     this.saveDatas(this.timeDatas);
 
     /*
-    this.childSigPad.savePad();
     let doc = new jsPDF();
     doc.text(20, 20, 'Feuille de temps');
     doc.text(20, 30, 'Heure d\'arrivée : ' + this.timeDatas.arrivingTime);

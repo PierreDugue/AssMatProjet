@@ -10,7 +10,7 @@ import { DropboxService } from '../../providers/dropbox-service';
 })
 
 export class listDropBoxComponent {
-    TOKEN: string = "zjq9V6DllwAAAAAAAAACUHG3sQWe3Ti32vNYce5iOj6L49KnMr4kXaQNLAertgxl";
+ /*   TOKEN: string = "zjq9V6DllwAAAAAAAAACUHG3sQWe3Ti32vNYce5iOj6L49KnMr4kXaQNLAertgxl";
 
     depth: number = 0;
     folders: any;
@@ -69,5 +69,5 @@ export class listDropBoxComponent {
         }, err => {
             console.log(err);
         });
-    }
+    }*/
 }

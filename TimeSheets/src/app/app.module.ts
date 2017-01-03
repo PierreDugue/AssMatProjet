@@ -8,7 +8,6 @@ import { SignaturePadModule } from 'angular2-signaturepad';
 import { Storage } from '@ionic/storage';
 import { sigPadComponent } from '../pages/home/sigPadComonent';
 import { Dropbox } from '../providers/dropbox';
-import { listDropBoxComponent } from '../pages/manage-page/listDropBoxComponent';
 import { DatastorageService } from '../providers/datastorage-service';
 import { ParametresPage } from '../pages/parametres/parametres';
 import { DetailRespoPage } from '../pages/detail-respo/detail-respo';
@@ -21,7 +20,6 @@ import { DetailRespoPage } from '../pages/detail-respo/detail-respo';
     ManagePagePage,
     TabsPage,
     sigPadComponent,
-    listDropBoxComponent,
     ParametresPage,
     DetailRespoPage
   ],
@@ -36,7 +34,6 @@ import { DetailRespoPage } from '../pages/detail-respo/detail-respo';
     ManagePagePage,
     TabsPage,
     sigPadComponent,
-    listDropBoxComponent,
     ParametresPage,
     DetailRespoPage
   ],

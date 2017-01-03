@@ -50,6 +50,7 @@
     <ion-item *ngFor="let item of listFeuilles">
       <ion-label>
         {{item?.arrivingTime}} {{item?.parentName}}
+       <img [src]="item.attachment" height="55" width="55">
       </ion-label>
     </ion-item>
   </ion-list>

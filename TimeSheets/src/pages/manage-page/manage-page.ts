@@ -12,9 +12,9 @@ import { TimeSheetService } from '../../providers/timeSheet-service';
 })
 
 export class ManagePagePage {
-
-    public listFeuilles = [];
+    public listFeuilles: any
     public neutre;
+    public dataURIPrefix = 'data:image/png;base64,'
     constructor(private viewCtrl: ViewController,
         public navCtrl: NavController,
         private timeSheetService: TimeSheetService,
@@ -25,6 +25,7 @@ export class ManagePagePage {
     }
 
     ionViewDidLoad() {
+
         this.platform.ready().then(() => {
             this.timeSheetService.initDB();
 
@@ -32,11 +33,18 @@ export class ManagePagePage {
                 .then(data => {
                     this.zone.run(() => {
                         this.listFeuilles = data;
-                    });
+                        for (let i in this.listFeuilles) {
+                            let attachment = this.dataURIPrefix +
+                                this.listFeuilles[i]._attachments["sigImg.png"].data
+                            this.listFeuilles[i].attachment = attachment;                    
+                        }
+                        console.log(this.listFeuilles);
+                    });                   
                 })
                 .catch(console.error.bind(console));
         });
-    }
+
+    };
 }
 
         /*
