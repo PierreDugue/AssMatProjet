@@ -11,7 +11,7 @@ import { Dropbox } from '../providers/dropbox';
 import { DatastorageService } from '../providers/datastorage-service';
 import { ParametresPage } from '../pages/parametres/parametres';
 import { DetailRespoPage } from '../pages/detail-respo/detail-respo';
-
+import { DetailSignature } from '../pages/manage-page/detail-signature';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,8 @@ import { DetailRespoPage } from '../pages/detail-respo/detail-respo';
     TabsPage,
     sigPadComponent,
     ParametresPage,
-    DetailRespoPage
+    DetailRespoPage,
+    DetailSignature
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -35,7 +36,8 @@ import { DetailRespoPage } from '../pages/detail-respo/detail-respo';
     TabsPage,
     sigPadComponent,
     ParametresPage,
-    DetailRespoPage
+    DetailRespoPage,
+    DetailSignature
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Storage]
 

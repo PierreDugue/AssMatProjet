@@ -1,9 +1,8 @@
 import { Component, NgZone } from '@angular/core';
-import { ModalController, NavController, Platform, ViewController } from 'ionic-angular';
+import { ModalController, NavController, Platform, ViewController, ToastController } from 'ionic-angular';
 import { DetailRespoPage } from '../detail-respo/detail-respo';
-
-//import { DropboxService } from '../../providers/dropbox-service';
 import { TimeSheetService } from '../../providers/timeSheet-service';
+import { DetailSignature } from './detail-signature';
 
 @Component({
     selector: 'list-dropBox',
@@ -12,41 +11,51 @@ import { TimeSheetService } from '../../providers/timeSheet-service';
 })
 
 export class ManagePagePage {
-    public listFeuilles: any
+    public listFeuilles;
     public neutre;
-    public dataURIPrefix = 'data:image/png;base64,'
+    public dataURIPrefix = 'data:image/png;base64,';
+    public recordId: any;
+    public revisionId: any;
     constructor(private viewCtrl: ViewController,
         public navCtrl: NavController,
         private timeSheetService: TimeSheetService,
         private platform: Platform,
         private zone: NgZone,
-        private modalCtrl: ModalController) {
+        private modalCtrl: ModalController,
+        public toastCtrl: ToastController) {
 
     }
 
-    ionViewDidLoad() {
-
-        this.platform.ready().then(() => {
-            this.timeSheetService.initDB();
-
-            this.timeSheetService.getAll()
-                .then(data => {
-                    this.zone.run(() => {
-                        this.listFeuilles = data;
-                        for (let i in this.listFeuilles) {
-                            let attachment = this.dataURIPrefix +
-                                this.listFeuilles[i]._attachments["sigImg.png"].data
-                            this.listFeuilles[i].attachment = attachment;                    
-                        }
-                        console.log(this.listFeuilles);
-                    });                   
-                })
-                .catch(console.error.bind(console));
-        });
-
+    ionViewDidEnter() {    
     };
-}
 
+    ionViewWillEnter() {        
+        this.displaySig();
+    }
+
+    displaySig() {
+        this.timeSheetService.retrieveAll().then((data) => {
+            let existingData = Object.keys(data).length;
+            if (existingData !== 0) {
+                this.listFeuilles = data;
+            }
+            else {
+                console.log("we get nada!");
+            }
+        });
+    }
+    /*
+        showDetail(datas) {
+            let modal = this.modalCtrl.create(DetailSignature, { datas: datas });
+            modal.present();
+        }
+    */
+    viewCharacter(param) {
+            let modal = this.modalCtrl.create(DetailSignature, { datas: param });
+            modal.present();
+       // this.navCtrl.push(DetailSignature, param);
+    }
+}
         /*
         TOKEN: string = "zjq9V6DllwAAAAAAAAACUQevaUIlMdO-RkPXDWNsV84oBykiuudgONPyF9NjN3T6";
     

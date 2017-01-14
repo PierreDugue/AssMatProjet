@@ -10,7 +10,7 @@ import { NativeStorage } from 'ionic-native';
   template: `
     <ion-title>
 
-      <h4>Please draw your Signature</h4>
+      <h4>Signez ici</h4>
     </ion-title>
 
   <ion-row [ngClass]="{'drawing-active': isDrawing}">
@@ -33,8 +33,7 @@ export class sigPadComponent {
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   signaturePadOptions: Object = {
     'minWidth': 2,
-    'canvasWidth': 400,
-    'canvasHeight': 200,
+ 
     'backgroundColor': '#f6fbff',
     'penColor': '#444444',
   };
@@ -62,11 +61,6 @@ export class sigPadComponent {
     this.signature = this.signaturePad.toDataURL();
     this.storage.set('savedSignature', this.signature);
     this.signaturePad.clear();
-    let toast = this.toastCtrl.create({
-      message: 'New Signature saved.',
-      duration: 2000
-    });
-    toast.present();
     this.sigImg.emit(this.signature);
   }
 

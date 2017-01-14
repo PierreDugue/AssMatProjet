@@ -30,27 +30,21 @@
 </ion-content>
 
 -->
-
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Liste de feuilles</ion-title>
-    <ion-buttons end>
-      <button ion-button>
-          <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-buttons>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Liste des feuilles</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content padding>
   <ion-list>
     <ion-label>Feuilles de temps</ion-label>
-    <ion-item *ngFor="let item of listFeuilles">
+    <ion-item *ngFor="let item of listFeuilles" (click)="viewCharacter({'key':item.id, 'rev':item.rev })">
       <ion-label>
-        {{item?.arrivingTime}} {{item?.parentName}}
-       <img [src]="item.attachment" height="55" width="55">
+        {{item?.dateOfDay}} {{item?.parentName}}
       </ion-label>
     </ion-item>
   </ion-list>

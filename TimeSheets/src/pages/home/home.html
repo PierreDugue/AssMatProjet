@@ -1,6 +1,9 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Feuille de temps</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Accueil</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -13,17 +16,25 @@
       Heure actuelle : {{currentTime.time}}
     </h2>
   </ion-item>
-  <form (ngSubmit)="register()">
+  <form (ngSubmit)="register()" [formGroup]="form">
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="timeDatas.dateOfDay" name="dateOfDay" formControlName="dateOfDay"></ion-datetime>
+    </ion-item>
     <ion-item>
       <ion-label>Parent</ion-label>
-      <ion-select [(ngModel)]="timeDatas.parentName" (ngModelChange)="onChange($event)" name="parentName">
+      <ion-select [(ngModel)]="timeDatas.parentName" (ngModelChange)="onChange($event)" name="parentName" formControlName="parentName">
         <ion-label>Parent</ion-label>
         <ion-option *ngFor="let respo of respoList">{{respo?.parentName}} {{respo?.parentSurname}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>Heure d'arrivée</ion-label>
-      <ion-datetime displayFormat="HH:mm" [(ngModel)]="timeDatas.arrivingTime" name="arrivingTime"></ion-datetime>
+      <ion-datetime displayFormat="HH:mm" [(ngModel)]="timeDatas.arrivingTime" name="arrivingTime" formControlName="arrivingTime"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Heure de depart</ion-label>
+      <ion-datetime displayFormat="HH:mm" [(ngModel)]="timeDatas.departureTime" name="departureTime" formControlName="departureTime"></ion-datetime>
     </ion-item>
     <button ion-button full type="submit">Valider</button>
   </form>
